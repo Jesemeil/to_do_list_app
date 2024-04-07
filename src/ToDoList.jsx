@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 function ToDoList() {
-  const [task, setTasks] = useState(["Eat Breakfast", "Take a shower"]);
+  const [tasks, setTasks] = useState(["Eat Breakfast", "Take a shower"]);
   const [newTask, setNewTask] = useState("");
 
   const handleInputChange = (event) => {
@@ -28,7 +28,7 @@ function ToDoList() {
           Add
         </button>
       </div>
-      <ol></ol>
+      <ol>{tasks.map((task, index))}</ol>
     </div>
   );
 }
