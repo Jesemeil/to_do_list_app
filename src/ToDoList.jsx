@@ -1,18 +1,49 @@
 import React, { useState } from "react";
 function ToDoList() {
-  const [tasks, setTasks] = useState(["Eat Breakfast", "Take a shower"]);
+  const [tasks, setTasks] = useState([
+    "Eat Breakfast",
+    "Take a shower",
+    "Walk the dog",
+  ]);
   const [newTask, setNewTask] = useState("");
 
   const handleInputChange = (event) => {
     setNewTask(event.target.value);
   };
-  const addTask = () => {};
 
-  const deleteTask = () => {};
+  const addTask = () => {
+    if (newTask.trim() !== "") {
+      setTasks((prevTasks) => [...prevTasks, newTask]);
+      setNewTask("");
+    }
+  };
 
-  const moveTask = () => {};
+  const deleteTask = (index) => {
+    const updatedTasks = tasks.filter((_, i) => i !== index);
+    setTasks(updatedTasks);
+  };
 
-  const moveTaskUp = () => {};
+  const moveTaskUp = (index) => {
+    if (index > 0) {
+      const updatedTasks = [...tasks];
+      [updatedTasks[index], updatedTasks[index - 1]] = [
+        updatedTasks[index - 1],
+        updatedTasks[index],
+      ];
+      setTasks(updatedTasks);
+    }
+  };
+
+  const moveTaskDown = (index) => {
+    if (index < tasks.length - 1) {
+      const updatedTasks = [...tasks];
+      [updatedTasks[index], updatedTasks[index + 1]] = [
+        updatedTasks[index + 1],
+        updatedTasks[index],
+      ];
+      setTasks(updatedTasks);
+    }
+  };
 
   return (
     <div className="to-do-list">
@@ -28,7 +59,22 @@ function ToDoList() {
           Add
         </button>
       </div>
-      <ol>{tasks.map((task, index))}</ol>
+      <ol>
+        {tasks.map((task, index) => (
+          <li key={index}>
+            <span className="text">{task}</span>
+            <button className="delete-button" onClick={() => deleteTask(index)}>
+              Delete
+            </button>
+            <button className="move-button" onClick={() => moveTaskUp(index)}>
+              ☝️
+            </button>
+            <button className="move-button" onClick={() => moveTaskDown(index)}>
+              👇
+            </button>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }
