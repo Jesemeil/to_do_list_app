@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 function ToDoList() {
   const [tasks, setTasks] = useState([
     "Eat Breakfast",
@@ -6,6 +7,7 @@ function ToDoList() {
     "Walk the dog",
   ]);
   const [newTask, setNewTask] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleInputChange = (event) => {
     setNewTask(event.target.value);
@@ -15,6 +17,9 @@ function ToDoList() {
     if (newTask.trim() !== "") {
       setTasks((prevTasks) => [...prevTasks, newTask]);
       setNewTask("");
+      setShowPopup(false);
+    } else {
+      setShowPopup(true);
     }
   };
 
@@ -75,7 +80,13 @@ function ToDoList() {
           </li>
         ))}
       </ol>
+      {showPopup && (
+        <div className="popup">
+          Please add a task before clicking the "Add" button.
+        </div>
+      )}
     </div>
   );
 }
+
 export default ToDoList;

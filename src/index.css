@@ -79,3 +79,8 @@ li {
   font-size: 1.4rem;
   margin-left: 10px;
 }
+
+.popup {
+  font-size: 20px;
+  color: white;
+}
